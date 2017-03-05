@@ -3,13 +3,17 @@
 int main()
 {
     int a = 4;
-    tsprintf("a=%d in %s",a,__FILE__);
+#ifdef ok
+    tsprintf("a=%d in %s\n",a++,__FILE__);
 
-    tsprintf("abc%%");
-/*
-    tsprintf("a=%d in %s",a);
+    if(a==5)
+        tsprintf("abc%%\n");
 
-    tsprintf("a=%d in %s",__FILE__,a);
-*/
+#else
+    tsprintf("a=%d in %s\n",a);
+
+    tsprintf("a=%d in %s\n",__FILE__,a);
+
+#endif
     return 0;
 }

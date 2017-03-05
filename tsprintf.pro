@@ -4,6 +4,8 @@ CONFIG += c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
+DEFINES += ok
+
 SOURCES += \
     test.cpp
 
