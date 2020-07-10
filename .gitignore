@@ -1,3 +1,5 @@
+# CMake
+
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -9,3 +11,16 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+build/
+
+# VS Code
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
