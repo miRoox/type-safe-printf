@@ -30,7 +30,7 @@ namespace tsprintf_impl {
 
 // alias
 using constStr = const char *;
-using std::size_t;
+using ::std::size_t;
 
 // if return 0, it means failed
 // else the return value means the offset of this format
@@ -43,7 +43,7 @@ constexpr size_t checkOneFormat(constStr fmt)
         if(fmt[offset+1] == 'c' ||
            fmt[offset+1] == 'd' ||
            fmt[offset+1] == 'i') { //int
-            if(std::is_integral<T>::value || std::is_enum<T>::value) {
+            if(::std::is_integral<T>::value || ::std::is_enum<T>::value) {
                 return ++offset;
             }
             else {
@@ -51,8 +51,8 @@ constexpr size_t checkOneFormat(constStr fmt)
             }
         }
         else if (fmt[offset+1] == 's') { //char*
-            if(std::is_pointer<T>::value &&
-                    std::is_same<typename std::remove_cv<typename std::remove_pointer<T>::type>::type, char>::value) {
+            if(::std::is_pointer<T>::value &&
+                    ::std::is_same<typename ::std::remove_cv<typename ::std::remove_pointer<T>::type>::type, char>::value) {
                 return ++offset;
             }
             else {
@@ -62,7 +62,7 @@ constexpr size_t checkOneFormat(constStr fmt)
         else if (fmt[offset+1] == 'o' ||
                  fmt[offset+1] == 'x' || fmt[offset+1] == 'X' ||
                  fmt[offset+1] == 'u') { // unsigned int
-            if((std::is_integral<T>::value && std::is_unsigned<T>::value) || std::is_enum<T>::value) {
+            if((::std::is_integral<T>::value && ::std::is_unsigned<T>::value) || ::std::is_enum<T>::value) {
                 return ++offset;
             }
             else {
@@ -73,7 +73,7 @@ constexpr size_t checkOneFormat(constStr fmt)
                  fmt[offset+1] == 'e' || fmt[offset+1] == 'E' ||
                  fmt[offset+1] == 'a' || fmt[offset+1] == 'A' ||
                  fmt[offset+1] == 'g' || fmt[offset+1] == 'G') { //double
-            if(std::is_floating_point<T>::value) {
+            if(::std::is_floating_point<T>::value) {
                 return ++offset;
             }
             else {
@@ -81,8 +81,8 @@ constexpr size_t checkOneFormat(constStr fmt)
             }
         }
         else if (fmt[offset+1] == 'n') { //int*
-            if(std::is_pointer<T>::value &&
-                    std::is_integral<typename std::remove_pointer<T>::type>::value) {
+            if(::std::is_pointer<T>::value &&
+                    ::std::is_integral<typename ::std::remove_pointer<T>::type>::value) {
                 return ++offset;
             }
             else {
@@ -90,7 +90,7 @@ constexpr size_t checkOneFormat(constStr fmt)
             }
         }
         else if (fmt[offset+1] == 'p') { //void*
-            if(std::is_pointer<T>::value) {
+            if(::std::is_pointer<T>::value) {
                 return ++offset;
             }
             else {
@@ -204,6 +204,6 @@ formatParser<T...> getParser(constStr fmt, T ...args);
     using namespace tsprintf_impl;         \
     static_assert(decltype(getParser(__VA_ARGS__))::checkFormat(_tsprintf_get_fmt(__VA_ARGS__)), \
     "tprintf(" #__VA_ARGS__ ") has wrong foramt");        \
-    return std::printf(__VA_ARGS__);}()
+    return ::std::printf(__VA_ARGS__);}()
 
 #endif // TSPRINTF_HPP
