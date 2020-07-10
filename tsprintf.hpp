@@ -198,7 +198,9 @@ formatParser<T...> getParser(constStr fmt, T ...args);
 
 }// end namespace tsprintf_impl
 
-#define _tsprintf_get_fmt(fmt,...) fmt
+#define _Expand_MSVC(...) __VA_ARGS__
+#define _tsprintf_get_fmt_i(fmt, ...) fmt
+#define _tsprintf_get_fmt(...) _Expand_MSVC(_tsprintf_get_fmt_i(__VA_ARGS__))
 
 #define tsprintf(...) [&]()->int{ \
     using namespace tsprintf_impl;         \
