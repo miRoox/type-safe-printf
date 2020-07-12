@@ -1,6 +1,6 @@
-# һ�����Ͱ�ȫ��printf
+# 一个类型安全的printf
 
-Ŀǰֻ֧������"%d","%s"�����Ļ�����ʽ
+目前只支持诸如"%d","%s"这样的基本格式
 
 ```cpp
     tsprintf("a=%d in %s\n",a); //wrong 
