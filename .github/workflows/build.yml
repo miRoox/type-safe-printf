@@ -1,18 +1,17 @@
 name: build
-
-on: [push]
-
+on: 
+  - push
+  - pull_request
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: configure
-      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=debug ..
-    - name: build
-      run: cmake --build build
-  build-windows:
-    runs-on: windows-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: configure
