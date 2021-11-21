@@ -1,6 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include <cstdio>
 #include "tsprintf.hpp"
 
 TEST_CASE("expressions should be evaluated only once") {

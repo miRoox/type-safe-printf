@@ -9,7 +9,7 @@ enable_testing()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(good good.cpp)
-target_include_directories(good PUBLIC doctest/doctest)
+add_executable(runtest runtest.cpp)
+target_include_directories(runtest PUBLIC doctest/doctest)
 
-add_test(NAME good COMMAND good)
+add_test(NAME runtest COMMAND runtest)
