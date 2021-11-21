@@ -199,11 +199,11 @@ formatParser<T...> getParser(constStr fmt, T ...args);
 }// end namespace tsprintf_impl
 
 #define _Expand_MSVC(...) __VA_ARGS__
-#define _tsprintf_get_fmt_i(fmt, ...) fmt
-#define _tsprintf_get_fmt(...) _Expand_MSVC(_tsprintf_get_fmt_i(__VA_ARGS__))
+#define _tsprintf_get_fmt(fmt, ...) fmt
+#define _tsprintf_check_fmt(...) (decltype(::tsprintf_impl::getParser(__VA_ARGS__))::checkFormat(_Expand_MSVC(_tsprintf_get_fmt(__VA_ARGS__))))
 
 #define tsprintf(...) [&]()->int{ \
-    static_assert(decltype(::tsprintf_impl::getParser(__VA_ARGS__))::checkFormat(_tsprintf_get_fmt(__VA_ARGS__)), \
+    static_assert(_tsprintf_check_fmt(__VA_ARGS__), \
     "tsprintf(" #__VA_ARGS__ ") has wrong foramt");        \
     return ::std::printf(__VA_ARGS__);}()
 
