@@ -23,3 +23,5 @@ jobs:
         cmake ..
     - name: build
       run: cmake --build build
+    - name: test
+      run: ctest -C Debug -VV --test-dir build
