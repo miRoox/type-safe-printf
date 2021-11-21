@@ -207,4 +207,19 @@ formatParser<T...> getParser(constStr fmt, T ...args);
     "tsprintf(" #__VA_ARGS__ ") has wrong foramt");        \
     return ::std::printf(__VA_ARGS__);}()
 
+#define tsfprintf(stream, ...) [&]()->int{ \
+    static_assert(_tsprintf_check_fmt(__VA_ARGS__), \
+    "tsfprintf(" #stream ", " #__VA_ARGS__ ") has wrong foramt");        \
+    return ::std::fprintf(stream, __VA_ARGS__);}()
+
+#define tssprintf(buffer, ...) [&]()->int{ \
+    static_assert(_tsprintf_check_fmt(__VA_ARGS__), \
+    "tssprintf(" #buffer ", " #__VA_ARGS__ ") has wrong foramt");        \
+    return ::std::sprintf(buffer, __VA_ARGS__);}()
+
+#define tssnprintf(buffer, size, ...) [&]()->int{ \
+    static_assert(_tsprintf_check_fmt(__VA_ARGS__), \
+    "tssnprintf(" #buffer ", " #size ", " #__VA_ARGS__ ") has wrong foramt");        \
+    return ::std::snprintf(buffer, size, __VA_ARGS__);}()
+
 #endif // TSPRINTF_HPP
