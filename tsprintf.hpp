@@ -204,7 +204,7 @@ formatParser<T...> getParser(constStr fmt, T ...args);
 
 #define tsprintf(...) [&]()->int{ \
     static_assert(decltype(::tsprintf_impl::getParser(__VA_ARGS__))::checkFormat(_tsprintf_get_fmt(__VA_ARGS__)), \
-    "tprintf(" #__VA_ARGS__ ") has wrong foramt");        \
+    "tsprintf(" #__VA_ARGS__ ") has wrong foramt");        \
     return ::std::printf(__VA_ARGS__);}()
 
 #endif // TSPRINTF_HPP
