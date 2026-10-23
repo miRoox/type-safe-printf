@@ -1,23 +1,26 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 4.4)
 
 project(tsprintf LANGUAGES CXX)
 
-# The bundled doctest declares a CMake 3.0 policy version, which CMake 4 removed.
-# Use this project's policy baseline for it while preserving higher user overrides.
-if(CMAKE_VERSION VERSION_GREATER_EQUAL 4.0 AND
-   (NOT DEFINED CMAKE_POLICY_VERSION_MINIMUM OR
-    CMAKE_POLICY_VERSION_MINIMUM VERSION_LESS 3.10))
-    set(CMAKE_POLICY_VERSION_MINIMUM 3.10)
+add_library(tsprintf INTERFACE)
+add_library(tsprintf::tsprintf ALIAS tsprintf)
+target_include_directories(tsprintf INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
+target_compile_features(tsprintf INTERFACE cxx_std_14)
+
+include(CTest)
+
+if(BUILD_TESTING)
+    set(DOCTEST_WITH_MAIN_IN_STATIC_LIB OFF)
+    set(DOCTEST_NO_INSTALL ON)
+    add_subdirectory(doctest EXCLUDE_FROM_ALL)
+
+    add_executable(runtest runtest.cpp)
+    target_link_libraries(runtest PRIVATE tsprintf::tsprintf doctest::doctest)
+    set_target_properties(runtest PROPERTIES
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
+    )
+
+    add_test(NAME runtest COMMAND runtest)
 endif()
-
-add_subdirectory(doctest)
-
-enable_testing()
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-add_executable(runtest runtest.cpp)
-target_include_directories(runtest PUBLIC doctest/doctest)
-
-add_test(NAME runtest COMMAND runtest)

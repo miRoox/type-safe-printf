@@ -50,3 +50,14 @@
     tsprintf("%ld\n", a); //build failed, requires long
     tsprintf("%*f\n", 8u, 1.25); //build failed, width requires promoted int
 ```
+
+运行测试需要 CMake 4.4 或更新版本；CI 使用 CMake 4.4.4 和 doctest v2.5.3：
+
+```sh
+git submodule update --init --recursive
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build --config Debug
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+CMake 项目可以通过 `tsprintf::tsprintf` 目标使用本库；设置 `-DBUILD_TESTING=OFF` 可关闭测试和 doctest 子项目。
